@@ -1,13 +1,55 @@
 {% extends "base.html" %}
 
-
-
 {% block title %}
-    <title>Newest joke!</title>
-{% endblock%}
-
+    Do Not Laugh Challenge!
+{% endblock %}
 
 {% block content %}
-    <h1>Do not laugh challange! :D</h1>
-    <p>{{ latest_joke }}</p>
+<div class="min-h-screen bg-pink-500 flex flex-col items-center justify-center p-6">
+    
+    <header class="text-center mb-8 space-y-2">
+        <h1 class="text-4xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50">
+            Do Not Laugh Challenge! 🤫
+        </h1>
+        <p class="text-sm text-white dark:text-white">
+            Spróbuj się nie zaśmiać. Czy podejmiesz wyzwanie?
+        </p>
+    </header>
+
+    <main x-data="{ showPunchline: false }" 
+          class="w-full max-w-md bg-white dark:bg-green-800 border border-zinc-200 dark:border-zinc-800 rounded-xl shadow-sm p-6 space-y-6 transition-all duration-300 hover:shadow-md">
+        
+        <div class="flex items-center justify-between">
+            <span class="text-xs font-semibold tracking-wide uppercase bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full dark:bg-amber-900/30 dark:text-amber-400">
+                Losowy Suchar 🎭
+            </span>
+            <span class="text-xs text-zinc-400">ID: #{{ latest_joke.joke_id }}</span>
+        </div>
+
+        <div class="space-y-4">
+            <p class="text-xl font-medium text-zinc-800 dark:text-zinc-100 leading-snug">
+                "{{ latest_joke.setup }}"
+            </p>
+
+            <div x-show="showPunchline" 
+                 x-transition:enter="transition ease-out duration-300"
+                 x-transition:enter-start="opacity-0 transform scale-95"
+                 x-transition:enter-end="opacity-100 transform scale-100"
+                 class="p-4 bg-zinc-50 dark:bg-zinc-950 rounded-lg border border-zinc-100 dark:border-zinc-900">
+                <p class="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                    — {{ latest_joke.punchline }}
+                </p>
+            </div>
+        </div>
+
+        <div class="pt-4 flex flex-col gap-2">
+            <c-button variant="default" @click="showPunchline = !showPunchline" class="w-full py-6 text-sm font-semibold">
+                <span x-text="showPunchline ? 'Ukryj odpowiedź 🙈' : 'Pokaż odpowiedź 👁️'"></span>
+            </c-button>
+
+        </div>
+    </main>
+
+    
+</div>
 {% endblock %}
