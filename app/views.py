@@ -5,8 +5,8 @@ from .models import Joke
 def homePage(request):
     jokes = Joke.objects.all()
 
-    latest_joke = Joke.objects.order_by('created_at').first()
+    latest_joke = Joke.objects.order_by('-created_at').first()
 
     context = {'latest_joke': latest_joke}
-    
+
     return render(request, "app/home.html", context)
